@@ -1,109 +1,46 @@
 # Logistic Regression Baseline Results
 
-**Model:** TF-IDF + Logistic Regression
-**Dataset:** FACTOID (3,193,625 Reddit posts)
-**Training Date:** November 2024
-**Training Time:** ~21 minutes (CPU)
+## Overview
 
-## Model Configuration
+We trained a TF-IDF + Logistic Regression baseline model on 3,193,625 Reddit posts from the FACTOID dataset to establish a performance benchmark for factuality detection. The model was trained using TF-IDF vectors with up to 50,000 features (unigrams and bigrams), L2-regularized logistic regression with balanced class weights, and a stratified 70-15-15 train-validation-test split. Training completed in approximately 21 minutes on CPU, demonstrating the computational efficiency of this traditional machine learning approach.
 
-- **Features:** TF-IDF vectors (max 50,000 features, unigrams + bigrams)
-- **Classifier:** Logistic Regression (L2 regularization, C=1.0)
-- **Class Weights:** Balanced
-- **Data Split:** 70% train / 15% validation / 15% test (stratified)
-- **Random Seed:** 42
+## Performance Analysis
 
-## Performance Summary
-
-### Test Set Performance (477,065 samples)
-
-| Metric | Score |
-|--------|-------|
-| **Overall Accuracy** | 64.11% |
-| **Macro F1** | 0.627 |
-| **Weighted F1** | 0.641 |
-| **ROC-AUC** | 0.671 |
-
-### Per-Class Results
-
-**Non-Factual Posts** (191,763 samples):
-- Precision: 55.3%
-- Recall: 55.4%
-- F1-Score: 0.554
-
-**Factual Posts** (285,302 samples):
-- Precision: 70.0%
-- Recall: 70.0%
-- F1-Score: 0.700
+The model achieved an overall accuracy of 64.11% on the test set of 477,065 posts, with a macro F1 score of 0.627 and ROC-AUC of 0.671. These results establish a solid baseline for comparison with more sophisticated transformer-based models. Notably, the model performed better at identifying factual content (70.0% F1-score) compared to non-factual content (55.4% F1-score), likely reflecting both the class imbalance in the dataset (60% factual vs. 40% non-factual) and the inherent difficulty in detecting misinformation through lexical features alone.
 
 ### Confusion Matrix
 
-```
-                    Predicted
-                Non-Factual  Factual
-Actual Non-Fact    106,251   85,512
-       Factual      85,715  199,587
-```
+![Confusion Matrix](confusion_matrix.png)
 
-**Key Observation:** The model shows better performance on factual content (70% F1) compared to non-factual content (55% F1). This may reflect the class imbalance (60% factual vs 40% non-factual in the dataset).
+The confusion matrix reveals that the model correctly classified 106,251 non-factual posts and 199,587 factual posts, while misclassifying 85,512 non-factual posts as factual and 85,715 factual posts as non-factual. The relatively balanced error rates across classes (44.6% error for non-factual vs. 30.0% error for factual) suggest the model isn't simply learning to predict the majority class, though it does show a bias toward predicting factual content.
 
-## Feature Analysis
+### ROC Curve Analysis
 
-### Top Non-Factual Indicators (Negative Coefficients)
+![ROC Curve](roc_curve.png)
 
-The model strongly associates these terms with non-factual content:
+The ROC curve demonstrates an AUC of 0.671, indicating moderate discriminative ability between factual and non-factual content. While significantly better than random chance (0.5), this leaves substantial room for improvement through more sophisticated modeling approaches. The curve's shape suggests the model maintains reasonable performance across various classification thresholds, providing flexibility for applications that require different precision-recall trade-offs.
 
-1. **Climate Denial:** "alarmists" (-7.88), "agw" (-4.96), "climate" (-4.21), "cooling" (-4.18), "warming" (-3.61)
-2. **Political Bias:** "leader donnie" (-7.22), "orange monster" (-7.10)
-3. **Conspiracy Language:** "power establishment" (-4.80), "ipcc" (-4.29)
-4. **Divisive Terms:** "feminist" (-3.88), "misandry" (-3.63)
+## What the Model Learned
 
-### Top Factual Indicators (Positive Coefficients)
+Analysis of the model's feature coefficients reveals interesting patterns about what linguistic cues the algorithm associated with factuality. The model strongly associated inflammatory and politically charged language with non-factual content, particularly terms related to climate denial ("alarmists" with coefficient -7.88, "agw" -4.96, "climate" -4.21) and divisive political rhetoric ("leader donnie" -7.22, "orange monster" -7.10). Conversely, the model learned to associate technical terminology and specific references with factual content, including vaccine-related discussions ("novavax" 4.28, "anti vax" 4.26) and technical references ("github new" 4.13).
 
-The model associates these with factual content:
+This pattern suggests the model is learning to distinguish between emotional, opinion-based language and more neutral, reference-based discourse. However, this raises important concerns about whether the model is truly identifying factuality or merely learning to recognize stylistic differences between different types of Reddit communities. The strong topic-specific associations (climate change, politics, vaccines) indicate the model may struggle to generalize beyond the specific domains present in the training data.
 
-1. **Vaccine Discussion:** "novavax" (4.28), "anti vax" (4.26)
-2. **Technical References:** "github new" (4.13), "ms mcenany" (5.01)
-3. **Specific Names:** "leatherface" (4.24), "catie" (4.16), "twiv" (3.65)
+## Limitations and Insights
 
-## Key Insights
+The TF-IDF approach, while computationally efficient and interpretable, operates at a surface level that cannot capture semantic meaning or contextual nuances. The model treats text as a "bag of words," ignoring word order beyond bigrams and failing to understand how context changes meaning. For example, "vaccine is effective" and "vaccine is not effective" would have similar TF-IDF representations despite opposite meanings. This limitation is particularly problematic for factuality detection, where subtle linguistic cues and logical relationships are crucial.
 
-1. **Baseline Performance:** 64% accuracy provides a reasonable baseline for comparison with more sophisticated models (e.g., DistilBERT).
+Additionally, the model appears to have learned strong associations between writing style and factuality labels, which may not reflect true factual accuracy. Inflammatory language doesn't necessarily indicate non-factual content, just as technical jargon doesn't guarantee factuality. The model's heavy reliance on topic-specific terms (climate change skepticism terminology, political nicknames) suggests it may be learning correlations specific to the Reddit communities in the training data rather than generalizable patterns of factual vs. non-factual discourse.
 
-2. **Style vs. Content:** The model appears to learn associations between language **style** (inflammatory vs. technical) and factuality labels, rather than evaluating factual accuracy directly.
+## Implications for Future Work
 
-3. **Topic Bias:** Strong associations with specific topics (climate change, politics, vaccines) suggest the model may be learning topic-specific patterns rather than generalizable factuality indicators.
+These baseline results establish that simple lexical features can capture some patterns of factuality in Reddit posts, achieving 64% accuracy through word frequencies alone. However, the limitations identified here motivate the development of more sophisticated approaches. The upcoming DistilBERT transformer model should address many of these shortcomings by understanding semantic context, capturing long-range dependencies, and learning more abstract representations of factuality beyond surface-level lexical patterns.
 
-4. **Class Imbalance Effects:** Better performance on the majority class (factual posts) is expected given the 60-40 class distribution.
-
-## Limitations
-
-1. **Surface-Level Features:** TF-IDF captures word frequencies but not semantic meaning or context
-2. **No Word Order:** Bigrams provide limited sequential information
-3. **Topic Dependence:** May not generalize well to new topics not seen during training
-4. **Style Bias:** Inflammatory language != non-factual (and vice versa)
-
-## Next Steps
-
-1. **DistilBERT Comparison:** Evaluate whether transformer-based models improve performance by capturing semantic context
-2. **Reuters Validation:** Test whether predictions align with professionally curated news content
-3. **Cross-Topic Evaluation:** Assess generalization to unseen topics
-4. **Error Analysis:** Examine misclassified examples to understand failure modes
-
-## Files in This Directory
-
-- `logreg_model.pkl` - Trained model (391KB)
-- `tfidf_vectorizer.pkl` - Fitted TF-IDF vectorizer (1.7MB)
-- `test_metrics.json` - Detailed performance metrics
-- `classification_report.txt` - Per-class performance breakdown
-- `confusion_matrix.png` - Confusion matrix visualization
-- `roc_curve.png` - ROC curve
-- `top_features.csv` - Most influential features ranked by coefficient magnitude
-- `test_predictions.csv` - Model predictions on test set (24MB, 477,065 rows)
+The model's tendency to associate specific topics with factuality labels also highlights the importance of external validation. By comparing model predictions against professionally curated Reuters news articles, we can assess whether the model has learned genuine factuality indicators or merely topic-specific and stylistic associations. This analysis will be crucial for understanding the model's potential for real-world deployment, where it must handle diverse topics and writing styles not seen during training.
 
 ## Reproducibility
 
-To reproduce these results:
+All results can be reproduced using the following command:
 
 ```bash
 python -m src.train_logreg \
@@ -114,6 +51,4 @@ python -m src.train_logreg \
     --random_seed 42
 ```
 
-## Conclusion
-
-This TF-IDF + Logistic Regression baseline achieves **64.11% accuracy** on 477K test samples, demonstrating that simple lexical features capture some patterns of factuality in Reddit posts. However, the strong association with specific topics and inflammatory language suggests the model is learning superficial patterns. The upcoming DistilBERT transformer model should provide insights into whether semantic understanding improves factuality detection beyond these lexical patterns.
+Additional files in this directory include the trained model (`logreg_model.pkl`, 391KB), TF-IDF vectorizer (`tfidf_vectorizer.pkl`, 1.7MB), detailed metrics (`test_metrics.json`), classification report (`classification_report.txt`), top features analysis (`top_features.csv`), and complete test predictions (`test_predictions.csv`, 24MB with 477,065 rows).
