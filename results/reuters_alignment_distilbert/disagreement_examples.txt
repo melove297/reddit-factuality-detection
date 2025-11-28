@@ -1,0 +1,45 @@
+Reuters-Model Disagreement Examples
+================================================================================
+
+CASE 1: High-confidence FACTUAL predictions with LOW Reuters similarity
+--------------------------------------------------------------------------------
+
+
+CASE 2: High-confidence NON-FACTUAL predictions with HIGH Reuters similarity
+--------------------------------------------------------------------------------
+
+Example 37877:
+  Predicted: Non-Factual (confidence: 0.8094)
+  Max Reuters similarity: 1.0000
+  Text: cnn breaking news: russia uses c19 health catastrophe in croatia to invade the country and recreate the sfr yugoslavia!
+
+--------------------------------------------------------------------------------
+
+Example 23917:
+  Predicted: Non-Factual (confidence: 0.8094)
+  Max Reuters similarity: 1.0000
+  Text: i guess i don t know the intention, but i know that it removed some antivax comments and allows others in a seemingly arbitrary manner, and it removes some provax comments while allowing others, so it isn t really censoring one viewpoint
+
+--------------------------------------------------------------------------------
+
+Example 38893:
+  Predicted: Non-Factual (confidence: 0.8094)
+  Max Reuters similarity: 1.0000
+  Text: exclusive: amazon deploys thermal cameras at warehouses to scan for fevers faster
+
+--------------------------------------------------------------------------------
+
+Example 20268:
+  Predicted: Non-Factual (confidence: 0.8094)
+  Max Reuters similarity: 1.0000
+  Text: the studies they cite usually say 50 to 70 of men who apply for custody, get it. but of course what they re talking about is joint custody , not truly equal custody. so there are a few problems: shouldn t this number essentially be 99 ? why is 50 or 70 applauded? how does it compare to when women request custody? if women receive custody 90 of the time under the same circumstances, it really doesn t prove much. joint custody and equal custody are not the same thing. joint custody can be as littl
+
+--------------------------------------------------------------------------------
+
+Example 3249:
+  Predicted: Non-Factual (confidence: 0.8094)
+  Max Reuters similarity: 1.0000
+  Text: postal worker admits fabricating allegations of ballot tampering, officials say
+
+--------------------------------------------------------------------------------
+

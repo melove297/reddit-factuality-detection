@@ -170,11 +170,45 @@ Trained on full FACTOID dataset (3.2M posts):
 
 ### DistilBERT Transformer
 
-Training in progress on full dataset with Apple Silicon GPU (MPS):
-- **Model**: distilbert-base-uncased (66.4M parameters)
-- **Hardware**: Apple Silicon GPU (MPS)
-- **Config**: 3 epochs, batch_size=16, lr=5e-5
-- **Estimated time**: ~63 hours (~2.6 days)
+Trained on full FACTOID dataset (3.2M posts) for 1 epoch:
+
+| Metric | Value |
+|--------|-------|
+| **Test Accuracy** | 63.19% |
+| **Macro F1** | 0.5409 |
+| **Weighted F1** | 0.5810 |
+| **ROC-AUC** | 0.6204 |
+| **Training Time** | ~20 hours (Apple Silicon GPU) |
+
+**Per-Class Performance:**
+- **Non-Factual**: Precision 0.611, Recall 0.232, F1 0.336 (191,763 samples)
+- **Factual**: Precision 0.636, Recall 0.901, F1 0.745 (285,302 samples)
+
+**Analysis:**
+- DistilBERT underperformed the LogReg baseline (63.19% vs 64.11%)
+- Model shows strong bias toward predicting factual class (90% recall, 23% recall for non-factual)
+- Likely underfitting due to only 1 epoch of training (3-5 epochs recommended)
+- Each sample seen only 1× vs LogReg's ~15× effective iterations
+
+### Reuters Alignment Analysis
+
+External validation comparing DistilBERT predictions with Reuters news article similarity (50K sample):
+
+**Similarity Metrics:**
+- **Mean similarity to Reuters**: 0.713 (reasonable alignment with professional news)
+- **Max similarity**: 0.9998 (most posts have highly similar Reuters articles)
+- **Top-5 mean similarity**: 0.999
+
+**Model Predictions Distribution:**
+- **Non-Factual**: 8,227 posts (16.5%)
+- **Factual**: 41,773 posts (83.5%)
+- Heavy bias toward factual predictions
+
+**Key Findings:**
+- **Correlation**: -0.121 (weak negative correlation between factual predictions and Reuters similarity)
+- **Statistical significance**: Highly significant differences between groups (p ≈ 0)
+- **Disagreement cases**: 2.62% of posts predicted as high-confidence non-factual have high Reuters similarity
+- Reddit posts show substantial semantic overlap with professional news content
 
 ## Output Files
 

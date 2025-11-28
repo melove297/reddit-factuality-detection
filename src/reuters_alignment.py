@@ -518,9 +518,10 @@ def main():
         top_k=args.top_k
     )
 
-    # Add similarity metrics to factoid_df
+    # Add similarity metrics to factoid_df (skip top_k_indices - it's a 2D array)
     for key, value in similarity_metrics.items():
-        factoid_df[key] = value
+        if key != 'top_k_indices':
+            factoid_df[key] = value
 
     # =========================================================================
     # STEP 5: Analyze alignment

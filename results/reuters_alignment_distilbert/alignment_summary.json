@@ -1,0 +1,16 @@
+{
+  "num_reddit_posts": 50000,
+  "factual_mean_similarity": 0.9997832179069519,
+  "factual_std_similarity": 0.0016252977075055242,
+  "nonfactual_mean_similarity": 0.9999794363975525,
+  "nonfactual_std_similarity": 0.0009537573787383735,
+  "t_test_statistic": -10.59737598986201,
+  "t_test_pvalue": 3.2674116763070156e-26,
+  "mann_whitney_u_statistic": 126693125.5,
+  "mann_whitney_u_pvalue": 0.0,
+  "correlation_prob_similarity": -0.12091850235658586,
+  "disagreement_case1_count": 0,
+  "disagreement_case1_percent": 0.0,
+  "disagreement_case2_count": 1312,
+  "disagreement_case2_percent": 2.624
+}
