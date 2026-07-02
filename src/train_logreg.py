@@ -87,6 +87,12 @@ def parse_args():
         default=True,
         help='Include metadata features (upvotes, num_comments, subreddit)'
     )
+    parser.add_argument(
+        '--no_metadata',
+        dest='use_metadata',
+        action='store_false',
+        help='Train using text features only'
+    )
 
     # Model arguments
     parser.add_argument(
